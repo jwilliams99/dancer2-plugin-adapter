@@ -59,8 +59,8 @@ register service => sub {
   my $class = $object_conf->{class}
     or die "No class specified for Adapter '$name'";
 
-  try_load_class($class)
-    or die "Module '$class' could not be loaded";
+  my @tcl = try_load_class($class);
+  if ($tcl[0]){ "Module '$class' could not be loaded $tcl[1]"}
 
   my $new = $object_conf->{constructor} || 'new';
   my $options = $args||$object_conf->{options};
